@@ -29,7 +29,7 @@ app.post("/api/notes", (req, res) => {
         const createNote = req.body;
         createNote.id = uniqid();
         noteDB.push(createNote);
-        fs.writeFile('./db/db.json', JSON.stringify(notes), function(err) {
+        fs.writeFile('./db/db.json', JSON.stringify(noteDB), function(err) {
             if (err) throw err;
             console.log('note saved');
         });

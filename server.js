@@ -24,14 +24,16 @@ app.get("/api/notes", (req, res) => {
 
 // insert note on db.JSON
 app.post("/api/notes", (req, res) => {
-    const createNote = req.body;
-    createNote.id = uniqid();
-    notes.push(createNote);
-    fs.writeFile('./db/db.json', JSON.stringify(notes), function(err) {
-        if (err) throw err;
-        console.log('note saved');
-    });
-    res.json(createNote);
+    fs.readFile('./db/db.json', 'utf8', function(err, data) {
+        const createNote = req.body;
+        createNote.id = uniqid();
+        notes.push(createNote);
+        fs.writeFile('./db/db.json', JSON.stringify(notes), function(err) {
+            if (err) throw err;
+            console.log('note saved');
+        });
+        res.json(createNote);
+    })
 });
 
 //Delete note on db.JSON

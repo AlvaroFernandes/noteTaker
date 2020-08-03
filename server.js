@@ -19,5 +19,5 @@ app.get('/notes', (req, res) => {
 
 
 app.listen(port, () => {
-    console.log("App listening on PORT " + PORT);
+    console.log("App listening on PORT " + port);
 })

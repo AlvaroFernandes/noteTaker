@@ -22,6 +22,7 @@
     "homepage": "https://github.com/AlvaroFernandes/noteTaker#readme",
     "dependencies": {
         "express": "^4.17.1",
-        "path": "^0.12.7"
+        "path": "^0.12.7",
+        "uniqid": "^5.2.0"
     }
 }

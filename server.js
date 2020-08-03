@@ -5,6 +5,8 @@ const path = require("path");
 const fs = require("fs");
 const uniqid = require("uniqid");
 
+const noteDB = require("./db/db.json");
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -12,7 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, './public')));
 
-const notes = []
 
 //read db.JSON file
 app.get("/api/notes", (req, res) => {
@@ -27,7 +28,7 @@ app.post("/api/notes", (req, res) => {
     fs.readFile('./db/db.json', 'utf8', function(err, data) {
         const createNote = req.body;
         createNote.id = uniqid();
-        notes.push(createNote);
+        noteDB.push(createNote);
         fs.writeFile('./db/db.json', JSON.stringify(notes), function(err) {
             if (err) throw err;
             console.log('note saved');
@@ -42,7 +43,7 @@ app.delete("/api/notes/:id", (req, res) => {
     fs.readFile('./db/db.json', 'utf8', function(err, data) {
         let noteList = JSON.parse(data);
         for (let i = 0; i < noteList.length; i++) {
-            if (noteList[i].id == chosen) {
+            if (noteList[i].id == selected) {
                 noteList.splice(i, 1);
                 fs.writeFile('./db/db.json', JSON.stringify(noteList), function(err) {
                     if (err) throw err;
